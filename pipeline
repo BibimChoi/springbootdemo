@@ -54,3 +54,6 @@ curl -X POST -H "Content-Type: application/json" -d \
 
 curl -X POST -d 'roleName=dsrtest&sid=dsrtest' \
     http://192.168.56.102:9003/folder-auth/assignSidToFolderRole --user admin:1182eb3b95cfae644e3a8abf5e71df5546 -v
+
+
+https://www.youtube.com/watch?v=tAUHfYYQrpo 유툽
