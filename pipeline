@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    stages {
+        stage('Create User Folder') {
+            steps {
+                script {
+                    String userName = "ctest"
+                    
+                    // Cloudbees Folders 플러그인을 사용하여 개별 폴더 생성
+                    com.cloudbees.hudson.plugins.folder.Folder folder = new com.cloudbees.hudson.plugins.folder.Folder(
+                        Jenkins.instance,
+                        userName
+                    )
+                    Jenkins.instance.putItem(folder)
+                    
+                    // 새로운 유저에게 액세스 권한 부여
+                    // Check if the folder has AuthorizationMatrixProperty
+                    def property = folder.getProperties().find{ it instanceof com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty }
+                        // Add permission to the user
+                    property.getAuthorization().add(username, permission)
+
+                        // Save the changes
+                    folder.save()
+
+                }
+            }
+        }
+    }
+}
