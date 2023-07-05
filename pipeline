@@ -18,3 +18,39 @@ pipeline {
         }
     }
 }
+
+
+CloudBees Credentials Plugin
+Folder-based Authorization Strategy
+Folders Plugin
+플러그인 설치
+
+curl -X POST -H "Content-Type: application/json" -d \
+    '{
+        "name": "btest",
+        "permissions": [
+            "hudson.model.Item.Delete",
+            "hudson.model.Item.Configure"
+        ],
+     }' http://192.168.56.102:9003/folder-auth/addGlobalRole --user admin:1182eb3b95cfae644e3a8abf5e71df5546 -v
+
+curl -X POST -H "Content-Type: application/json" -d \
+    '{
+        "name": "dsrtest",
+        "permissions": [
+            "hudson.model.Item.Delete",
+            "hudson.model.Item.Configure",
+	    "hudson.model.Item.Read",
+	    "hudson.model.Item.Create",
+	    "hudson.model.Item.Build",
+	    "hudson.model.Item.Cancel",
+	    "hudson.model.Item.Discover",
+	    "hudson.model.Item.Workspace",
+        ],
+        "folderNames": [
+            "dsrtest",
+        ],
+}' http://192.168.56.102:9003/folder-auth/addFolderRole --user admin:1182eb3b95cfae644e3a8abf5e71df5546 -v
+
+curl -X POST -d 'roleName=dsrtest&sid=dsrtest' \
+    http://192.168.56.102:9003/folder-auth/assignSidToFolderRole --user admin:1182eb3b95cfae644e3a8abf5e71df5546 -v
